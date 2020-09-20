@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  tic-tac-toe-service:
+    container_name: tic-tac-toe-service
+    image: task/tic-tac-toe-service
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_DB_URI: mongodb://admin:pass@mongodb:27017
   mongodb:
     image: mongo:latest
     restart: always
@@ -9,4 +21,4 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: pass
     ports:
-      - 27017:27017
+      - "27017:27017"
